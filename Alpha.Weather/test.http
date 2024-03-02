@@ -1,0 +1,16 @@
+# @name toquenReqMain
+POST http://localhost:5138/api/account/login
+Content-Type: application/json
+
+{
+  "user": "mar@mar.com",
+  "password": "Martincho1!"
+}
+
+####
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU2MzM2NzBiLTYxODgtNDA0NC1iMjMxLWRhNzM3NjNkMjBkYiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtYXJAbWFyLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Im1hckBtYXIuY29tIiwianRpIjoiYWM1YmI1ZjAtMGM2Yi00YzViLWE0YmMtZTU1NjlkOGQwNjRiIiwiZXhwIjoxNzA5MDkwNTU0LCJpc3MiOiJodHRwOi8vaWRlbnRpdHk6ODA4MCIsImF1ZCI6IkFscGhhIn0.-prOrED5nfQKnT-skPGW-FnHTLl7DdmrOUddbO8Cuk8
+###
+
+GET http://localhost:5197/weather
+Authorization: Bearer {{token}}
+
