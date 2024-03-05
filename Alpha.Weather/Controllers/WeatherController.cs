@@ -15,7 +15,7 @@ public class WeatherController(ILogger<WeatherController> logger) : ControllerBa
     private readonly ILogger<WeatherController> _logger = logger;
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Policy = "Weather.Weather.Read")]
     public IEnumerable<WeatherForecast> Get()
     {
         var rng = new Random();

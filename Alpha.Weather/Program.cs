@@ -13,7 +13,7 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddHealthChecks();
 
-        IdentityModelEventSource.ShowPII = true;
+//      IdentityModelEventSource.ShowPII = true;
 
         builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -29,6 +29,9 @@ internal class Program
                     SignatureValidator = (string token, TokenValidationParameters parameters) => new JwtSecurityToken(token)
                 };
             });
+            
+        builder.Services.AddAuthorizationBuilder()
+            .AddPolicy("Weather.Weather.Read", authBuilder => { authBuilder.RequireClaim("Weather.Weather.Read"); });
 
         var app = builder.Build();
         app.MapControllers();
