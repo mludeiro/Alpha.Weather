@@ -1,6 +1,7 @@
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using Alpha.Utils.Consul;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -12,6 +13,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddControllers();
         builder.Services.AddHealthChecks();
+        builder.Services.AddMemoryCache();
 
 //      IdentityModelEventSource.ShowPII = true;
 
@@ -33,10 +35,13 @@ internal class Program
         builder.Services.AddAuthorizationBuilder()
             .AddPolicy("Weather.Weather.Read", authBuilder => { authBuilder.RequireClaim("Weather.Weather.Read"); });
 
+        builder.Services.ConsulServicesConfig(builder.Configuration.GetSection("Consul").Get<ConsulConfig>()!);
+
         var app = builder.Build();
         app.MapControllers();
         app.MapHealthChecks("/health");
 
+        
         app.UseAuthentication();
         app.UseAuthorization();
 

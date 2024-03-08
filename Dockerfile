@@ -8,6 +8,12 @@ ARG APP_NAME=Alpha.Weather
 
 COPY . ./${APP_NAME}
 
+ARG GITHUB_USER
+ENV GITHUB_USER ${GITHUB_USER}
+
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN ${GITHUB_TOKEN}
+
 RUN dotnet restore ${APP_NAME}
 
 # ----------------------------------------------------------------- publish ---
