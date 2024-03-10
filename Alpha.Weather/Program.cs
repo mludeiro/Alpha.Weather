@@ -1,9 +1,7 @@
 
 using System.IdentityModel.Tokens.Jwt;
-using System.Text;
-using Alpha.Utils.Consul;
+using Alpha.Common.Consul;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 
 internal class Program

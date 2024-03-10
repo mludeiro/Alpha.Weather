@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Alpha.Common.WeatherService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Weather.Controllers;
@@ -16,7 +17,7 @@ public class WeatherController(ILogger<WeatherController> logger) : ControllerBa
 
     [HttpGet]
     [Authorize(Policy = "Weather.Weather.Read")]
-    public IEnumerable<WeatherForecast> Get()
+    public List<WeatherForecast> Get()
     {
         var rng = new Random();
         return Enumerable.Range(1, 100).Select(index => new WeatherForecast
@@ -25,13 +26,7 @@ public class WeatherController(ILogger<WeatherController> logger) : ControllerBa
             TemperatureC = rng.Next(-20, 55),
             Summary = Summaries[rng.Next(Summaries.Length)]
         })
-        .ToArray();
+        .ToList();
     }
 }
 
-public class WeatherForecast
-{
-    public DateOnly Date { get; set; }
-    public int TemperatureC { get; set; }
-    public string? Summary { get; set; }
-}
