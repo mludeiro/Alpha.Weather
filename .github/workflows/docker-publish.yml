@@ -15,6 +15,9 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  # Nuget configuration
+  NUGET_USER: mludeiro
+  NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}    
 
 jobs:
   build:
@@ -75,9 +78,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-        env:
-          NUGET_USER: mludeiro
-          NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}    
           
 
       # Sign the resulting Docker image digest except on PRs.
