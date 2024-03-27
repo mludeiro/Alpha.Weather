@@ -14,6 +14,8 @@ ENV NUGET_USER ${NUGET_USER}
 ARG NUGET_TOKEN
 ENV NUGET_TOKEN ${NUGET_TOKEN}
 
+RUN echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " ${NUGET_USER}
+
 RUN dotnet restore ${APP_NAME}
 
 # ----------------------------------------------------------------- publish ---
