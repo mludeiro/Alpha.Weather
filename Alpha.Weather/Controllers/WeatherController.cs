@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Alpha.Weather.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class WeatherController(ILogger<WeatherController> logger) : ControllerBase
+[Route("/api/[controller]")]
+public class WeatherController(ILogger<WeatherController> logger) : ControllerBase, IWeatherService
 {
     private static readonly string[] Summaries = new[]
     {
@@ -15,18 +15,22 @@ public class WeatherController(ILogger<WeatherController> logger) : ControllerBa
 
     private readonly ILogger<WeatherController> _logger = logger;
 
+
     [HttpGet]
     [Authorize(Policy = "Weather.Weather.Read")]
-    public List<WeatherForecast> Get()
+    public Task<List<WeatherForecast>> Weather()
     {
         var rng = new Random();
-        return Enumerable.Range(1, 100).Select(index => new WeatherForecast
+        var ret = Enumerable.Range(1, 100).Select(index => new WeatherForecast
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = rng.Next(-20, 55),
             Summary = Summaries[rng.Next(Summaries.Length)]
         })
         .ToList();
+
+        return Task.FromResult(ret);
     }
+
 }
 

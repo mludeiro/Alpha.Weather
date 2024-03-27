@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /app
 
-ARG APP_NAME=Alpha.Weather
+ENV APP_NAME=Alpha.Weather
 
 COPY . ./${APP_NAME}
 
@@ -20,7 +20,7 @@ RUN dotnet restore ${APP_NAME}
 
 FROM build as publish
 
-ARG APP_NAME=Alpha.Weather
+ENV APP_NAME=Alpha.Weather
 
 RUN dotnet publish ./${APP_NAME} -c Release -o /${APP_NAME}/publish/
 

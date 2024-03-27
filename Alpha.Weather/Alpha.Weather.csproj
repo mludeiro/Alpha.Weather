@@ -9,6 +9,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.14" />
 
-    <PackageReference Include="Alpha.Common" Version="1.0.18"/>
+    <PackageReference Include="Alpha.Common" Version="1.0.28"/>
   </ItemGroup>
 </Project>

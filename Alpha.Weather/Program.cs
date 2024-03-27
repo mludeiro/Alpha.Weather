@@ -1,8 +1,5 @@
-
-using System.IdentityModel.Tokens.Jwt;
 using Alpha.Common.Consul;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
+using Alpha.Common.Security;
 
 internal class Program
 {
@@ -15,23 +12,10 @@ internal class Program
 
 //      IdentityModelEventSource.ShowPII = true;
 
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-                    ValidateIssuerSigningKey = false,
-                    SignatureValidator = (string token, TokenValidationParameters parameters) => new JwtSecurityToken(token)
-                };
-            });
+        var jwtOptions = builder.Configuration.GetSection("Jwt").Get<JwtOptions>()!;
+        builder.Services.AddAlphaAuthentication(jwtOptions);
             
-        builder.Services.AddAuthorizationBuilder()
-            .AddPolicy("Weather.Weather.Read", authBuilder => { authBuilder.RequireClaim("Weather.Weather.Read"); });
+        builder.Services.AddAuthorizationBuilder().AddAlphaAuthorizationPolicies();
 
         builder.Services.ConsulServicesConfig(builder.Configuration.GetSection("Consul").Get<ConsulConfig>()!);
 
@@ -42,8 +26,6 @@ internal class Program
         
         app.UseAuthentication();
         app.UseAuthorization();
-
-
 
         app.Run();
     }
