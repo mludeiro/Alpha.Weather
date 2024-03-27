@@ -17,7 +17,7 @@ internal class Program
             
         builder.Services.AddAuthorizationBuilder().AddAlphaAuthorizationPolicies();
 
-        builder.Services.ConsulServicesConfig(builder.Configuration.GetSection("Consul").Get<ConsulConfig>()!);
+//        builder.Services.ConsulServicesConfig(builder.Configuration.GetSection("Consul").Get<ConsulConfig>()!);
 
         var app = builder.Build();
         app.MapControllers();
