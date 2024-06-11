@@ -15,7 +15,6 @@ public class WeatherController(ILogger<WeatherController> logger) : ControllerBa
 
     private readonly ILogger<WeatherController> _logger = logger;
 
-
     [HttpGet]
     [Authorize(Policy = "Weather.Weather.Read")]
     public Task<List<WeatherForecast>> Weather()
